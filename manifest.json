@@ -1,0 +1,42 @@
+{
+
+  "manifest_version": 2,
+  "name": "Tap out",
+  "author": "k88hudson",
+  "version": "0.0.1",
+  "description": "Turn off stuff",
+
+  "permissions": [
+    "<all_urls>",
+    "cookies",
+    "contextualIdentities",
+    "tabs",
+    "storage",
+    "webRequest",
+    "webRequestBlocking"
+   ],
+
+   "background": {
+    "scripts": [
+     "background.js"
+    ]
+   },
+
+   "web_accessible_resources": [
+    "blocker.html"
+   ],
+
+   "options_ui": {
+    "page": "options.html",
+    "browser_style": true,
+    "open_in_tab": false
+   },
+
+   "browser_specific_settings": {
+    "gecko": {
+      "id": "addon@example.com",
+      "strict_min_version": "42.0"
+    }
+  }
+
+}
