@@ -6,7 +6,7 @@ import {
   setSettings as setSettingsStorage,
   Settings,
   WorkDay,
-} from "./settings";
+} from "./lib/settings";
 
 const Options = () => {
   const [settings, setSettingsState] = useState<Settings | null>(null);

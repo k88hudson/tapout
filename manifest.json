@@ -1,10 +1,10 @@
 {
 
   "manifest_version": 2,
-  "name": "Tap out",
+  "name": "Tap Out",
   "author": "k88hudson",
   "version": "0.0.1",
-  "description": "Block work-related sites in your default container (other containers work normally)",
+  "description": "Block sites in your default container during work hours.",
   "permissions": [
     "<all_urls>",
     "cookies",
