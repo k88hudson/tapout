@@ -1,0 +1,14 @@
+{
+  "exclude": ["node_modules"],
+  "include": ["src/**/*"],
+  "compilerOptions": {
+    "strict": true,
+    "typeRoots": ["node_modules/@types", "node_modules/web-ext-types"],
+    "lib": ["esnext", "dom"],
+    "target": "ES2016",
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react"
+  }
+}

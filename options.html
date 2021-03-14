@@ -4,28 +4,34 @@
   <meta charset="UTF-8">
   <title>Options</title>
   <style>
+    *, *:before, *:after {
+      box-sizing: border-box;
+    }
     #domains {
       width: 100%;
       height: 200px;
     }
+    .form-group {
+      margin-bottom: 10px;
+    }
+
+    th {
+      text-align: left;
+    }
+
+    #work-hours td, #work-hours th {
+      padding: 3px;
+    }
+    #work-hours input[type="time"] {
+      width: 100%;
+    }
+    #work-hours td:first-child {
+      text-transform: capitalize;
+    }
   </style>
 </head>
 <body>
-  <h3>Options</h3>
-  <form>
-    <div>
-      <label>Enabled</label>
-      <input type="checkbox" id="enabled"/>
-    </div>
-    <div>
-      <label>Domains (one per line)</label>
-      <textarea id="domains"></textarea>
-    </div>
-    <div>
-    <div>
-      <button type="submit">Save</button>
-    </div>
-  </form>
-  <script src="options.js"></script>
+  <div id="root"></div>
+  <script src="./js/options.js"></script>
 </body>
 </html>

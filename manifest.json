@@ -4,8 +4,7 @@
   "name": "Tap out",
   "author": "k88hudson",
   "version": "0.0.1",
-  "description": "Turn off stuff",
-
+  "description": "Block work-related sites in your default container (other containers work normally)",
   "permissions": [
     "<all_urls>",
     "cookies",
@@ -18,7 +17,7 @@
 
    "background": {
     "scripts": [
-     "background.js"
+     "js/background.js"
     ]
    },
 
