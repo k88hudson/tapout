@@ -5,13 +5,13 @@ export type WorkDay = {
 };
 
 export interface Settings {
-  disabled: boolean;
+  enabled: boolean;
   domains: Array<string>;
   workDays: { [day: string]: WorkDay };
 }
 
 export const DEFAULT_SETTINGS: Settings = {
-  disabled: false,
+  enabled: true,
   domains: [
     "mail.google.com",
     "docs.google.com",

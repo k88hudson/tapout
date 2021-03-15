@@ -31,7 +31,7 @@ async function updateListeners() {
   const listener = async (details: ReqListenerDetails) => {
     // Only block the default container
     if (
-      settings.disabled !== true &&
+      settings.enabled !== false &&
       isInBlockRange(settings) &&
       details.cookieStoreId === DEFAULT_CONTAINER
     ) {

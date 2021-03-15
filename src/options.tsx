@@ -8,24 +8,33 @@ import {
   WorkDay,
 } from "./lib/settings";
 
+interface SettingsState {
+  settings: Settings | null;
+  hasChanges: boolean;
+}
+
 const Options = () => {
-  const [settings, setSettingsState] = useState<Settings | null>(null);
+  const [{ settings, hasChanges }, setSettingsState] = useState<SettingsState>({
+    settings: null,
+    hasChanges: false,
+  });
   useEffect(() => {
     (async () => {
-      setSettingsState(await getSettings());
+      setSettingsState({ settings: await getSettings(), hasChanges: false });
     })();
   }, []);
 
   async function setSettings(newValues: Partial<Settings>) {
     // await setSettingsStorage(newValues);
     const merged = { ...(settings || {}), ...newValues } as Settings;
-    setSettingsState(merged);
+    setSettingsState({ settings: merged, hasChanges: true });
   }
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (settings) {
       await setSettingsStorage(settings);
+      setSettingsState({ settings, hasChanges: false });
     }
   }
 
@@ -35,93 +44,90 @@ const Options = () => {
   return (
     <form onSubmit={onSubmit}>
       <div className="form-group">
-        <label>Disable all blocking</label>
         <input
           type="checkbox"
-          id="disabled"
-          checked={settings.disabled}
-          onChange={(e) => setSettings({ disabled: e.target.checked })}
-        />
+          id="enabled"
+          checked={settings.enabled}
+          onChange={(e) => setSettings({ enabled: e.target.checked })}
+        />{" "}
+        <label>Block sites outside specified hours</label>
       </div>
-
-      <div className="form-group">
+      <div
+        style={settings.enabled ? {} : { opacity: 0.5, pointerEvents: "none" }}
+      >
         <div className="form-group">
-          <label>Domains (one per line)</label>
-          <textarea
-            id="domains"
-            value={settings.domains.join("\n")}
-            onChange={(e) =>
-              setSettings({ domains: e.target.value.split("\n") })
-            }
-          ></textarea>
-        </div>
+          <div className="form-group">
+            <label>Domains (one per line)</label>
+            <textarea
+              id="domains"
+              value={settings.domains.join("\n")}
+              onChange={(e) =>
+                setSettings({ domains: e.target.value.split("\n") })
+              }
+            ></textarea>
+          </div>
 
-        <div id="work-hours">
-          <table>
-            <thead>
-              <tr>
-                {["Day", "Allow?", "Start Time", "End Time"].map((title) => (
-                  <th key={title}>{title}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {Object.keys(settings.workDays).map((day) => {
-                const { allow, startTime, endTime } = settings.workDays[day];
-                const setDayConfig = (config: Partial<WorkDay>) =>
-                  setSettings({
-                    workDays: {
-                      ...settings.workDays,
-                      [day]: { ...settings.workDays[day], ...config },
-                    },
-                  });
-                return (
-                  <tr key={day}>
-                    <td>
-                      <label>{day}</label>
-                    </td>
-                    <td>
-                      <input
-                        type="checkbox"
-                        checked={allow}
-                        onChange={(e) =>
-                          setDayConfig({ allow: e.target.checked })
-                        }
-                      />
-                    </td>
-                    <td>
-                      {allow && (
+          <div id="work-hours">
+            <p>Allow only during these times:</p>
+            <table>
+              <tbody>
+                {Object.keys(settings.workDays).map((day) => {
+                  const { allow, startTime, endTime } = settings.workDays[day];
+                  const setDayConfig = (config: Partial<WorkDay>) =>
+                    setSettings({
+                      workDays: {
+                        ...settings.workDays,
+                        [day]: { ...settings.workDays[day], ...config },
+                      },
+                    });
+                  return (
+                    <tr key={day}>
+                      <td className="day-label">
                         <input
-                          type="time"
-                          value={startTime}
+                          type="checkbox"
+                          checked={allow}
                           onChange={(e) =>
-                            setDayConfig({ startTime: e.target.value })
+                            setDayConfig({ allow: e.target.checked })
                           }
-                        />
-                      )}
-                    </td>
-                    <td>
+                        />{" "}
+                        <label>{day}</label>
+                      </td>
                       {allow && (
-                        <input
-                          type="time"
-                          value={endTime}
-                          onChange={(e) =>
-                            setDayConfig({ endTime: e.target.value })
-                          }
-                        />
+                        <>
+                          <td>
+                            <input
+                              type="time"
+                              value={startTime}
+                              onChange={(e) =>
+                                setDayConfig({ startTime: e.target.value })
+                              }
+                            />
+                          </td>
+                          <td>to</td>
+                          <td>
+                            <input
+                              type="time"
+                              value={endTime}
+                              onChange={(e) =>
+                                setDayConfig({ endTime: e.target.value })
+                              }
+                            />
+                          </td>
+                        </>
                       )}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-
-      <div className="form-group">
-        <button type="submit">Save</button>
-      </div>
+      {hasChanges && (
+        <div className="form-group">
+          <button type="submit">Save changes</button>
+        </div>
+      )}
     </form>
   );
 };
