@@ -33,7 +33,7 @@
 
    "browser_specific_settings": {
     "gecko": {
-      "id": "addon@example.com",
+      "id": "tapout@katehudson.ca",
       "strict_min_version": "42.0"
     }
   }
