@@ -5,11 +5,12 @@
   "main": "background.js",
   "scripts": {
     "start": "webpack -w --mode development",
-    "test": "npm run test:lint && jest",
+    "test": "npm run test:lint && npm run test:unit",
     "test:lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "test:unit": "jest",
     "build": "npm run build:webpack && npm run build:extension",
     "build:webpack": "rm -rf js && webpack",
-    "build:extension": "web-ext build --overwrite-dest"
+    "build:extension": "web-ext build --overwrite-dest && mv web-ext-artifacts/*.zip web-ext-artifacts/tap_out.xpi"
   },
   "author": "k88hudson",
   "license": "MPL-2.0",

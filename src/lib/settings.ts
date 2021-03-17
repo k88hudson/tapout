@@ -56,8 +56,7 @@ function createDateFromTimeString(timeString: string) {
   return compareDate;
 }
 
-export function isInBlockRange(settings: Settings): boolean {
-  const now = new Date();
+export function isInBlockRange(settings: Settings, now = new Date()): boolean {
   const weekday = [
     "sunday",
     "monday",
