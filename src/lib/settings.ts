@@ -15,13 +15,7 @@ export interface Settings {
 
 export const DEFAULT_SETTINGS: Settings = {
   enabled: true,
-  domains: [
-    "mail.google.com",
-    "docs.google.com",
-    "jira.mozilla.com",
-    "bugzilla.mozilla.org",
-    "mana.mozilla.org",
-  ],
+  domains: ["mail.google.com", "docs.google.com"],
   workDays: {
     sunday: { allow: false },
     monday: { allow: true, startTime: "09:00", endTime: "17:00" },
