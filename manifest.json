@@ -4,7 +4,7 @@
   "name": "Tap Out",
   "author": "k88hudson",
   "version": "0.0.1",
-  "description": "Block sites in your default container during work hours.",
+  "description": "Block sites in some containers during work hours",
   "permissions": [
     "<all_urls>",
     "cookies",
