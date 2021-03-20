@@ -21,6 +21,10 @@
     ]
    },
 
+   "icons": {
+      "48": "icons/alarm.svg"
+    },
+
    "web_accessible_resources": [
     "blocker.html"
    ],
