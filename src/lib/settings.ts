@@ -1,3 +1,5 @@
+export const DEFAULT_CONTAINER = "firefox-default";
+
 export type WorkDay = {
   allow: boolean;
   startTime?: string;
@@ -8,6 +10,7 @@ export interface Settings {
   enabled: boolean;
   domains: Array<string>;
   workDays: { [day: string]: WorkDay };
+  blockedContainers: Array<string>;
 }
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -28,6 +31,7 @@ export const DEFAULT_SETTINGS: Settings = {
     friday: { allow: true, startTime: "09:00", endTime: "17:00" },
     saturday: { allow: false },
   },
+  blockedContainers: [DEFAULT_CONTAINER],
 };
 
 export async function getSettings(): Promise<Settings> {

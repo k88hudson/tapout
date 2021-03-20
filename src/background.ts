@@ -1,4 +1,3 @@
-const DEFAULT_CONTAINER = "firefox-default";
 const BLOCK_URL = browser.runtime.getURL("blocker.html");
 import { getSettings, isInBlockRange } from "./lib/settings";
 
@@ -29,11 +28,10 @@ async function updateListeners() {
   };
 
   const listener = async (details: ReqListenerDetails) => {
-    // Only block the default container
     if (
       settings.enabled !== false &&
       isInBlockRange(settings) &&
-      details.cookieStoreId === DEFAULT_CONTAINER
+      settings.blockedContainers.includes(details.cookieStoreId)
     ) {
       return redirect("domain", details.url, "test");
     }
